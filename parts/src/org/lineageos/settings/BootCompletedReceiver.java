@@ -23,17 +23,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import vendor.xiaomi.hardware.touchfeature.V1_0.ITouchFeature;
+import org.lineageos.settings.RefreshRateHandler;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
 
     private static final boolean DEBUG = false;
     private static final String TAG = "XiaomiParts";
-
     public static final String SHAREDD2TW = "sharadeD2TW";
     private ITouchFeature mTouchFeature;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
+    RefreshRateHandler.setFPS(RefreshRateHandler.getRefreshRate(context));
     //Micro-Service to restore sata of dt2w on reboot
     SharedPreferences prefs = context.getSharedPreferences(SHAREDD2TW, Context.MODE_PRIVATE);
     try {
@@ -46,3 +47,4 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     }
 
 }
+
